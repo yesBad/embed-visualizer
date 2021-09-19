@@ -5,7 +5,6 @@ import Button from './button';
 import ModalContainer from './modalcontainer';
 import AboutModal from './aboutmodal';
 import CodeModal from './codemodal';
-import WarningModal from './warningmodal';
 import CodeMirror from './codemirror';
 import DiscordView from './discordview';
 
@@ -34,27 +33,27 @@ function FooterButton(props) {
 }
 
 const initialContent = 'this `supports` __a__ **subset** *of* ~~markdown~~ 😃 ```js\nfunction foo(bar) {\n  console.log(bar);\n}\n\nfoo(1);```';
-const initialColor = Math.floor(Math.random() * 0xFFFFFF);
+const initialColor = 1;
 const initialEmbed = {
   title: 'title ~~(did you know you can have markdown here too?)~~',
   description: 'this supports [named links](https://discordapp.com) on top of the previously shown subset of markdown. ```\nyes, even code blocks```',
-  url: 'https://discordapp.com',
+  url: 'https://github.com/yesBad/embed-visualizer',
   color: initialColor,
   timestamp: new Date().toISOString(),
-  footer: { icon_url: 'https://cdn.discordapp.com/embed/avatars/0.png', text: 'footer text' },
-  thumbnail: { url: 'https://cdn.discordapp.com/embed/avatars/0.png' },
-  image: { url: 'https://cdn.discordapp.com/embed/avatars/0.png' },
+  footer: { icon_url: 'https://cdn.discordapp.com/icons/789536411204190299/6ce9f268e544809ff413c11c8b71ef8a.png', text: 'footer text' },
+  thumbnail: { url: 'https://cdn.discordapp.com/icons/789536411204190299/6ce9f268e544809ff413c11c8b71ef8a.png' },
+  image: { url: 'https://cdn.discordapp.com/icons/789536411204190299/6ce9f268e544809ff413c11c8b71ef8a.png' },
   author: {
-    name: 'author name',
-    url: 'https://discordapp.com',
-    icon_url: 'https://cdn.discordapp.com/embed/avatars/0.png'
+    name: 'Leovoel <3',
+    url: 'https://github.com/leovoel/embed-visualizer',
+    icon_url: 'https://avatars.githubusercontent.com/u/11607580'
   },
   fields: [
-    { name: '🤔', value: 'some of these properties have certain limits...' },
-    { name: '😱', value: 'try exceeding some of them!' },
-    { name: '🙄', value: 'an informative error should show up, and this view will remain as-is until all issues are fixed' },
-    { name: '<:thonkang:219069250692841473>', value: 'these last two', inline: true },
-    { name: '<:thonkang:219069250692841473>', value: 'are inline fields', inline: true }
+    { name: '🤔', value: 'this is specially modified for LiveBots eval function' },
+    { name: '😱', value: 'so you can send cool embeds easily!' },
+    { name: '🙄', value: 'what is livebot you ask? oh its just the best thing ever! https://github.com/SebOuellette/LiveBot' },
+    { name: '<:thonkang:219069250692841473>', value: 'so yeah', inline: true },
+    { name: '<:thonkang:219069250692841473>', value: 'dope :D', inline: true }
   ]
 };
 
@@ -63,17 +62,6 @@ const initialEmbed = {
 const initialCode = JSON.stringify({
   content: initialContent,
   embed: initialEmbed
-}, null, '  ');
-
-const webhookExample = JSON.stringify({
-  content: `${initialContent}\nWhen sending webhooks, you can have [masked links](https://discordapp.com) in here!`,
-  embeds: [
-    initialEmbed,
-    {
-      title: 'Woah',
-      description: 'You can also have multiple embeds!\n**NOTE**: The color picker does not work with multiple embeds (yet).'
-    },
-  ]
 }, null, '  ');
 
 const App = React.createClass({
@@ -152,28 +140,6 @@ const App = React.createClass({
     this.setState({ currentModal: null });
   },
 
-  toggleWebhookMode() {
-    if (!this.state.webhookExampleWasShown) {
-      this.setState({ currentModal: WarningModal });
-    } else {
-      this.validateInput(this.state.input, !this.state.webhookMode);
-    }
-  },
-
-  displayWebhookExample() {
-    this.setState({ currentModal: null, webhookExampleWasShown: true });
-    this.validateInput(webhookExample, true);
-  },
-
-  dismissWebhookExample() {
-    this.setState({ currentModal: null, webhookExampleWasShown: true });
-    this.validateInput(this.state.input, true);
-  },
-
-  toggleTheme() {
-    this.setState({ darkTheme: !this.state.darkTheme });
-  },
-
   toggleCompactMode() {
     this.setState({ compactMode: !this.state.compactMode });
   },
@@ -190,10 +156,8 @@ const App = React.createClass({
   },
 
   render() {
-    const webhookModeLabel = `${this.state.webhookMode ? 'Dis' : 'En'}able webhook mode`;
-    const themeLabel = `${this.state.darkTheme ? 'Light' : 'Dark'} theme`;
     const compactModeLabel = `${this.state.compactMode ? 'Cozy' : 'Compact'} mode`;
-    const colorPickerLabel = `${!this.state.colorPickerShowing ? 'Open' : 'Close'} color picker`;
+    const colorPickerLabel = `${!this.state.colorPickerShowing ? 'Open' : 'Close'} embed color picker`;
 
     const colorPicker = this.state.colorPickerShowing ? (
       <div style={{
@@ -238,8 +202,6 @@ const App = React.createClass({
               <FooterButton label={colorPickerLabel} onClick={this.openColorPicker} />
               {colorPicker}
             </div>
-            <FooterButton label={webhookModeLabel} onClick={this.toggleWebhookMode} />
-            <FooterButton label={themeLabel} onClick={this.toggleTheme} />
             <FooterButton label={compactModeLabel} onClick={this.toggleCompactMode} />
             <FooterButton label='About' onClick={this.openAboutModal} />
           </footer>

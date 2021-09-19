@@ -2,39 +2,16 @@ import React from 'react';
 import hljs from 'highlight.js';
 import Modal from './modal';
 
-import discord4j from '../snippets/discord4j';
-import discordnet from '../snippets/discordnet';
-import dsharpplus from '../snippets/dsharpplus';
-import dsharpplusEmbedbuilder from '../snippets/dsharpplus-embedbuilder';
-import discordpy from '../snippets/discordpy';
-import discordie from '../snippets/discordie';
-import discordjs from '../snippets/discordjs';
-import discordio from '../snippets/discordio';
-import restcord from '../snippets/restcord';
-import eris from '../snippets/eris';
-import discordrb from '../snippets/discordrb';
-import jda from '../snippets/jda';
-
+import livebot from '../snippets/livebot';
 
 const libraries = {
-  'dotnet_discord-net': discordnet,
-  'dotnet_dsharpplus': dsharpplus,
-  'dotnet_dsharpplusEmbedbuilder': dsharpplusEmbedbuilder,
-  'python_discord-py': discordpy,
-  'js_discordie': discordie,
-  'js_discordjs': discordjs,
-  'js_discordio': discordio,
-  'js_eris': eris,
-  'php_restcord': restcord,
-  'ruby_discordrb': discordrb,
-  'java_discord4j': discord4j,
-  'java_jda': jda,
+  'js_discordjs': livebot,
 };
 
 // TODO: check for localStorage availability?
 // are we ever going to run into a browser that supports flexbox but not localStorage?
 
-const LOCAL_STORAGE_KEY = 'codegen_lib';
+const LOCAL_STORAGE_KEY = 'js_discordjs';
 
 const CodeModal = React.createClass({
   getInitialState() {
@@ -78,11 +55,6 @@ const CodeModal = React.createClass({
         <div className='ma3'>
 
           <div className='mv2 flex flex-auto flex-column'>
-            <div className='bg-dark-red washed-blue pa2 mb2'>
-              <strong>NOTE:</strong> These code snippets may need changes to work in your
-              actual program, and they may not even be correct. Do <strong>NOT</strong> just copy and paste them in
-              without understanding what they mean.
-            </div>
             <select
               className='w-100 h2 mb2'
               value={this.state.library}
